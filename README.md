@@ -101,3 +101,74 @@ backups/             数据库备份文件
 ## 说明
 
 项目使用的是 MongoDB 数据库，所以运行前需要先保证数据库能连接上。如果虚拟机没有启动，或者 IP 地址发生变化，需要重新修改 `.env`。
+
+## 技术说明
+
+### 程序怎么组织
+
+程序从 `main.py` 开始运行。`main.py` 主要负责显示菜单、接收输入和调用功能，具体的数据库操作分在几个模块中：
+
+- `book_manager.py`：图书的增删改查和评分排行
+- `reader_manager.py`：读者查询以及学院、等级统计
+- `borrow_manager.py`：借阅登记、借阅记录查询和归还实验
+- `stat_manager.py`：使用 MongoDB 聚合管道做统计
+- `mongodb_connect.py`：读取 `.env`，建立 MongoDB 连接
+
+各个模块都接收同一个 `db` 对象，操作结束后由主程序统一关闭连接。
+
+### 数据库集合
+
+数据库名称默认是 `library`，项目中主要使用下面几个集合：
+
+| 集合 | 用途 | 主要字段 |
+| --- | --- | --- |
+| `books` | 保存图书信息 | `isbn`、`title`、`author`、`publisher`、`category`、`price`、`stock`、`rating`、`tags`、`publish_date`、`borrow_count` |
+| `readers` | 保存读者信息 | `card_no`、`name`、`college`、`level` |
+| `borrow_logs` | 保存借阅流水 | `reader_card`、`book_isbn`、`borrow_date`、`status`、`return_date` |
+| `category_stats` | 分类统计数据 | 由导出脚本读取 |
+| `borrow_return_demo` | 归还功能的实验副本 | 从 `borrow_logs` 复制而来 |
+
+`borrow_logs` 在当前数据库中是时间序列集合，所以 MongoDB 还会看到对应的 `system.buckets.borrow_logs`。这个系统集合由 MongoDB 自己维护，备份脚本不会把它当作普通集合导出。
+
+### 主要操作流程
+
+1. 程序启动后，先连接 MongoDB，并显示 `books`、`readers`、`borrow_logs` 和 `category_stats` 的数量。
+2. 查询图书时，可以按书名、分类和价格范围组合查询，结果按书名排序。
+3. 登记借阅前会检查读者是否存在、图书是否存在以及库存是否大于 0。
+4. 借阅记录写入 `borrow_logs`，状态初始为“借出”。当前实验只登记流水，不会自动减少 `books.stock`。
+5. 归还操作使用 `borrow_return_demo`，先复制一份借阅记录，再把对应记录改成“已归还”，不会直接修改正式的 `borrow_logs`。
+6. 统计功能使用 MongoDB 的 `aggregate()`，分别统计图书分类、年度借阅次数和热门图书。
+
+### 统计查询
+
+`stat_manager.py` 中有三组聚合查询：
+
+- 图书分类统计：统计每类图书的数量、库存总量和平均价格。
+- 借阅趋势：按 `borrow_date` 的年份统计借阅次数，显示时区使用 `Asia/Shanghai`。
+- 热门图书：按 `borrow_count` 从高到低排序，显示前几名图书。
+
+### 备份文件怎么用
+
+`backup_mongodb.py` 会读取数据库中的非系统集合，把每个集合保存成一个 JSON 文件，同时保存索引信息；如果遇到视图，则保存视图定义。备份目录中还会生成 `manifest.json`，可以用它查看本次备份了哪些内容。
+
+这套脚本是项目里的逻辑备份，适合课程演示和保存示例数据。要在服务器故障后完整恢复 MongoDB，建议另外使用 MongoDB Database Tools 的 `mongodump` 和 `mongorestore`。
+
+### 目前的实验限制
+
+- 借阅登记不会自动扣减库存，库存需要在图书管理功能中单独修改。
+- 归还功能目前只演示在副本集合中更新状态，正式借阅流水保持不变。
+- 程序默认使用 `.env` 中的 MongoDB 用户登录，账号需要有对应数据库的读写权限。
+
+## 简单检查
+
+修改代码后，可以先检查 Python 文件是否有语法错误：
+
+```bash
+python -m py_compile main.py book_manager.py reader_manager.py borrow_manager.py stat_manager.py mongodb_connect.py export_data.py backup_mongodb.py
+```
+
+检查通过后，再启动主程序测试数据库连接和菜单功能：
+
+```bash
+python main.py
+```
