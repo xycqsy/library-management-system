@@ -1,0 +1,19 @@
+# 数据库密码及本地配置
+.env
+.env.*
+!.env.example
+
+# Python 缓存
+__pycache__/
+*.pyc
+
+# 虚拟环境
+.venv/
+venv/
+
+# IDE 本地配置
+.vscode/
+.idea/
+
+# MongoDB 备份（可能包含读者和借阅数据）
+backups/

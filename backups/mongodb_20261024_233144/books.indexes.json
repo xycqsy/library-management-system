@@ -1,0 +1,61 @@
+{
+  "_id_": {
+    "v": 2,
+    "key": [
+      [
+        "_id",
+        1
+      ]
+    ]
+  },
+  "isbn_unique": {
+    "v": 2,
+    "key": [
+      [
+        "isbn",
+        1
+      ]
+    ],
+    "unique": true
+  },
+  "title_index": {
+    "v": 2,
+    "key": [
+      [
+        "title",
+        1
+      ]
+    ]
+  },
+  "category_index": {
+    "v": 2,
+    "key": [
+      [
+        "category",
+        1
+      ]
+    ]
+  },
+  "tags_multikey": {
+    "v": 2,
+    "key": [
+      [
+        "tags",
+        1
+      ]
+    ]
+  },
+  "category_price_index": {
+    "v": 2,
+    "key": [
+      [
+        "category",
+        1
+      ],
+      [
+        "price",
+        1
+      ]
+    ]
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "book_in_stock",
+  "type": "view",
+  "options": {
+    "viewOn": "books",
+    "pipeline": [
+      {
+        "$match": {
+          "stock": {
+            "$gt": 0
+          }
+        }
+      }
+    ]
+  },
+  "info": {
+    "readOnly": true
+  }
+}

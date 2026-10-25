@@ -1,0 +1,8 @@
+# Runtime dependencies for the library management system
+# Tested with Python 3.12
+
+# MongoDB driver (also provides bson.json_util used by the export scripts)
+pymongo>=4.18,<5
+
+# Load MongoDB connection settings from the local .env file
+python-dotenv>=1.0,<2

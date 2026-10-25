@@ -1,0 +1,27 @@
+[
+  {
+    "_id": "计算机",
+    "book_count": 7,
+    "avg_rating": 4.5
+  },
+  {
+    "_id": "数学",
+    "book_count": 3,
+    "avg_rating": 4.666666666666667
+  },
+  {
+    "_id": "经济管理",
+    "book_count": 3,
+    "avg_rating": 4.2
+  },
+  {
+    "_id": "外语",
+    "book_count": 2,
+    "avg_rating": 4.35
+  },
+  {
+    "_id": "文学",
+    "book_count": 5,
+    "avg_rating": 4.7
+  }
+]

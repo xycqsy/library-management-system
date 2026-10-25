@@ -1,0 +1,13 @@
+[
+  {
+    "_id": {
+      "$oid": "6adc9a2df153e9e3ec4d781d"
+    },
+    "action": "权限验证",
+    "operator": "libWriter",
+    "description": "测试读写账号的数据写入权限",
+    "create_time": {
+      "$date": "2026-10-24T11:44:45.497Z"
+    }
+  }
+]

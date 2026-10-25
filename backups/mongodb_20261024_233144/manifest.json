@@ -1,0 +1,104 @@
+{
+  "created_at_utc": "2026-10-24T15:31:44.781491+00:00",
+  "database": "library",
+  "collections": [
+    {
+      "name": "book",
+      "type": "collection",
+      "documents": 0,
+      "file": "book.json",
+      "indexes_file": "book.indexes.json"
+    },
+    {
+      "name": "book_in_stock",
+      "type": "view",
+      "file": "book_in_stock.view.json"
+    },
+    {
+      "name": "book_logs",
+      "type": "collection",
+      "documents": 1,
+      "file": "book_logs.json",
+      "indexes_file": "book_logs.indexes.json"
+    },
+    {
+      "name": "books",
+      "type": "collection",
+      "documents": 20,
+      "file": "books.json",
+      "indexes_file": "books.indexes.json"
+    },
+    {
+      "name": "books_backup",
+      "type": "collection",
+      "documents": 20,
+      "file": "books_backup.json",
+      "indexes_file": "books_backup.indexes.json"
+    },
+    {
+      "name": "borrow_delete_demo",
+      "type": "collection",
+      "documents": 51,
+      "file": "borrow_delete_demo.json",
+      "indexes_file": "borrow_delete_demo.indexes.json"
+    },
+    {
+      "name": "borrow_logs",
+      "type": "collection",
+      "documents": 67,
+      "file": "borrow_logs.json",
+      "indexes_file": "borrow_logs.indexes.json"
+    },
+    {
+      "name": "borrow_logs_backup1",
+      "type": "collection",
+      "documents": 66,
+      "file": "borrow_logs_backup1.json",
+      "indexes_file": "borrow_logs_backup1.indexes.json"
+    },
+    {
+      "name": "borrow_logs_backup_66",
+      "type": "collection",
+      "documents": 66,
+      "file": "borrow_logs_backup_66.json",
+      "indexes_file": "borrow_logs_backup_66.indexes.json"
+    },
+    {
+      "name": "borrow_return_demo",
+      "type": "collection",
+      "documents": 67,
+      "file": "borrow_return_demo.json",
+      "indexes_file": "borrow_return_demo.indexes.json"
+    },
+    {
+      "name": "category_stats",
+      "type": "collection",
+      "documents": 5,
+      "file": "category_stats.json",
+      "indexes_file": "category_stats.indexes.json"
+    },
+    {
+      "name": "readers",
+      "type": "collection",
+      "documents": 16,
+      "file": "readers.json",
+      "indexes_file": "readers.indexes.json"
+    },
+    {
+      "name": "readers ",
+      "type": "collection",
+      "documents": 0,
+      "file": "readers .json",
+      "indexes_file": "readers .indexes.json"
+    },
+    {
+      "name": "readers_backup1",
+      "type": "collection",
+      "documents": 16,
+      "file": "readers_backup1.json",
+      "indexes_file": "readers_backup1.indexes.json"
+    }
+  ],
+  "errors": [],
+  "format": "MongoDB Extended JSON (bson.json_util)"
+}
